@@ -1,0 +1,244 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+@font-face {
+	font-family: 'Resagnicto';
+	src:
+    	url('../font/Resagnicto.ttf');
+}
+@font-face {
+	font-family: 'ResagnictoBold';
+	src:
+    	url('../font/ResagnictoBold.ttf');
+}
+
+body {
+	font-family: 'Resagnicto', sans-serif;
+	text-align: center;
+}
+
+h1 {
+	margin: 5% 5% 1% 5%;
+	font-size: 200%;
+	font-weight: bold;
+	line-height: 180%;
+}
+
+h2 {
+	font-size: 130%;
+	font-family: 'ResagnictoBold', sans-serif;
+	margin: 5px 0 20px 0;
+}
+
+p {
+	margin: 1%;
+	font-size: 80%;
+	line-height: 160%;
+}
+
+a {
+	color: black;
+}
+
+abbr {
+	cursor: help;
+}
+
+div.tile {
+	display: inline-block;
+	width: 16%;
+	margin: 1%;
+	padding: 1%;
+	border-radius: 10px;
+	text-align: left;
+	opacity: .9;
+}
+
+div.overall {
+	display: block;
+	width: 96%;
+	margin: 1%;
+	padding: 1%;
+	text-align: left;
+	opacity: .9;
+}
+
+div.tűrhető {
+	background: gold;
+	color: black;
+}
+
+div.elfogadható {
+	background: dodgerblue;
+	color: white;
+}
+
+div.természetes {
+	background: limegreen;
+	color: black;
+}
+
+div.kedvezőtlen {
+	background: sienna;
+	color: white;
+}
+
+div.egészségtelen {
+	background: darkmagenta;
+	color: white;
+}
+
+div.káros {
+	background: black;
+	color: white;
+}
+
+div.clear {
+	clear: both;
+}
+
+div.current-air-row-amount {
+	font-size: 150%;
+}
+
+div.overall {
+	font-family: 'ResagnictoBold', sans-serif;
+	border-radius: 10px;
+	line-height: 150%;
+}
+
+div.overall p {
+	margin: 1% 0;
+}
+
+sub {
+	font-size: 60%;
+	position: sub;
+}
+
+div.indicate {
+	display: block;
+	background: white;
+	height: 10px;
+	margin: 20px 0 10px 0;
+	width: 100%;
+	overflow: hidden;
+}
+
+div.indicate span {
+	display: block;
+	background: black;
+	margin: 0;
+	padding: 0;
+	height: 10px;
+}
+
+@media screen and (orientation:portrait) {
+	body.egészségtelen,
+	body.kedvezőtlen,
+	body.tűrhető,
+	body.káros {
+		background-size: auto 100%;
+    	background-repeat: no-repeat;
+    }
+}
+
+@media screen and (max-width: 1650px) {
+	div.tile h2 span {
+		font-size: 60%;
+	}
+
+	h1 {
+		font-size: 120%;
+	}
+}
+
+@media screen and (max-width: 1080px) {
+	div.tile {
+		width: 42%;
+		margin: 2%;
+		padding: 2%;
+	}
+
+	div.tile h2 span {
+		font-size: 60%;
+		display: block;
+		margin: 10px 0 0 0;
+	}
+
+	div.overall {
+		width: 92%;
+		margin: 2%;
+		padding: 2%;
+	}
+}
+
+@media screen and (max-width: 480px) {
+	div.tile {
+		width: 80%;
+		margin: 5%;
+		padding: 5%;
+	}
+
+	div.tile h2 span {
+		font-size: 60%;
+		display: block;
+		margin: 10px 0 0 0;
+	}
+
+	div.overall {
+		width: 80%;
+		margin: 5%;
+		padding: 5%;
+	}
+
+	div.overall h2 {
+		line-height: 180%;
+	}
+}
