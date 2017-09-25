@@ -63,6 +63,22 @@ body {
 	text-align: center;
 }
 
+body.tűrhető { }
+
+body.elfogadható { }
+
+body.természetes { }
+
+body.kedvezőtlen { }
+
+body.problémás { }
+
+body.egészségtelen { }
+
+body.káros { }
+
+body.veszélyes { }
+
 h1 {
 	margin: 5% 5% 1% 5%;
 	font-size: 200%;
@@ -129,12 +145,22 @@ div.kedvezőtlen {
 	color: white;
 }
 
+div.problémás {
+	background: tomato;
+	color: white;
+}
+
 div.egészségtelen {
 	background: darkmagenta;
 	color: white;
 }
 
 div.káros {
+	background: darkslateblue;
+	color: white;
+}
+
+div.veszélyes {
 	background: black;
 	color: white;
 }
