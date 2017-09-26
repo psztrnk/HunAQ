@@ -45,12 +45,13 @@
 	$pm10Title = $pm10->find('div.current-air-material', 0);
 	$pm10SubTitle = $pm10->find('div.current-air-material-subtext', 0);
 	$pm10Data = $pm10->find('div.current-air-row-amount', 0);
+	$pm10DataFix = str_replace('m3', 'm<sup>3</sup>', $pm10Data);
 	$pm10Text = $pm10->find('div.current-air-row-summary', 0);
 	$pm10Percent = $pm10->find('div.current-air-row-percent', 0);
 // return PM10 data
 	echo '<div class="tile '.$pm10Text->plaintext.'">';
 	echo '<h2>'.$pm10Title->plaintext.'<span> ('.$pm10SubTitle->plaintext.')<span></h2>';
-	echo '<abbr title="Az egészségügyi határérték '.$pm10Percent->plaintext.'-a">'.$pm10Data.'</abbr><br />';
+	echo '<abbr title="Az egészségügyi határérték '.$pm10Percent->plaintext.'-a">'.$pm10DataFix.'</abbr><br />';
 	echo $pm10Text;
 	echo '<div class="indicate"><span style="width: '.$pm10Percent->plaintext.';"></span></div>';
 	echo '</div>';
@@ -61,12 +62,13 @@
 	$no2TitleFix = str_replace('NO2', 'NO<sub>2</sub>', $no2Title->plaintext);
 	$no2SubTitle = $no2->find('div.current-air-material-subtext', 0);
 	$no2Data = $no2->find('div.current-air-row-amount', 0);
+	$no2DataFix = str_replace('m3', 'm<sup>3</sup>', $no2Data);
 	$no2Text = $no2->find('div.current-air-row-summary', 0);
 	$no2Percent = $no2->find('div.current-air-row-percent', 0);
 // return NO2 data
 	echo '<div class="tile '.$no2Text->plaintext.'">';
 	echo '<h2>'.$no2TitleFix.'<span> ('.$no2SubTitle->plaintext.')<span></h2>';
-	echo '<abbr title="Az egészségügyi határérték '.$no2Percent->plaintext.'-a">'.$no2Data.'</abbr><br />';
+	echo '<abbr title="Az egészségügyi határérték '.$no2Percent->plaintext.'-a">'.$no2DataFix.'</abbr><br />';
 	echo $no2Text;
 	echo '<div class="indicate"><span style="width: '.$no2Percent->plaintext.';"></span></div>';
 	echo '</div>';
@@ -77,12 +79,13 @@
 	$so2TitleFix = str_replace('SO2', 'SO<sub>2</sub>', $so2Title->plaintext);
 	$so2SubTitle = $so2->find('div.current-air-material-subtext', 0);
 	$so2Data = $so2->find('div.current-air-row-amount', 0);
+	$so2DataFix = str_replace('m3', 'm<sup>3</sup>', $so2Data);
 	$so2Text = $so2->find('div.current-air-row-summary', 0);
 	$so2Percent = $so2->find('div.current-air-row-percent', 0);
 // return SO2 Data
 	echo '<div class="tile '.$so2Text->plaintext.'">';
 	echo '<h2>'.$so2TitleFix.'<span> ('.$so2SubTitle->plaintext.')<span></h2>';
-	echo '<abbr title="Az egészségügyi határérték '.$so2Percent->plaintext.'-a">'.$so2Data.'</abbr><br />';
+	echo '<abbr title="Az egészségügyi határérték '.$so2Percent->plaintext.'-a">'.$so2DataFix.'</abbr><br />';
 	echo $so2Text;
 	echo '<div class="indicate"><span style="width: '.$so2Percent->plaintext.';"></span></div>';
 	echo '</div>';
@@ -93,12 +96,13 @@
 	$noxTitleFix = str_replace('NOx', 'NO<sub>X</sub>', $noxTitle->plaintext);
 	$noxSubTitle = $nox->find('div.current-air-material-subtext', 0);
 	$noxData = $nox->find('div.current-air-row-amount', 0);
+	$noxDataFix = str_replace('m3', 'm<sup>3</sup>', $noxData);
 	$noxText = $nox->find('div.current-air-row-summary', 0);
 	$noxPercent = $nox->find('div.current-air-row-percent', 0);
 // return NOx Data
 	echo '<div class="tile '.$noxText->plaintext.'">';
 	echo '<h2>'.$noxTitleFix.'<span> ('.$noxSubTitle->plaintext.')<span></h2>';
-	echo '<abbr title="Az egészségügyi határérték '.$noxPercent->plaintext.'-a">'.$noxData.'</abbr><br />';
+	echo '<abbr title="Az egészségügyi határérték '.$noxPercent->plaintext.'-a">'.$noxDataFix.'</abbr><br />';
 	echo $noxText;
 	echo '<div class="indicate"><span style="width: '.$noxPercent->plaintext.';"></span></div>';
 	echo '</div>';
@@ -109,12 +113,13 @@
 	$o3TitleFix = str_replace('O3', 'O<sub>3</sub>', $o3Title->plaintext);
 	$o3SubTitle = $o3->find('div.current-air-material-subtext', 0);
 	$o3Data = $o3->find('div.current-air-row-amount', 0);
+	$o3DataFix = str_replace('m3', 'm<sup>3</sup>', $o3Data);
 	$o3Text = $o3->find('div.current-air-row-summary', 0);
 	$o3Percent = $o3->find('div.current-air-row-percent', 0);
 // return O3 Data
 	echo '<div class="tile '.$o3Text->plaintext.'">';
 	echo '<h2>'.$o3TitleFix.'<span> ('.$o3SubTitle->plaintext.')<span></h2>';
-	echo '<abbr title="Az egészségügyi határérték '.$o3Percent->plaintext.'-a">'.$o3Data.'</abbr><br />';
+	echo '<abbr title="Az egészségügyi határérték '.$o3Percent->plaintext.'-a">'.$o3DataFix.'</abbr><br />';
 	echo $o3Text;
 	echo '<div class="indicate"><span style="width: '.$o3Percent->plaintext.';"></span></div>';
 	echo '</div><div class="clear"></div>';
