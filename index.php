@@ -4,137 +4,83 @@
 		<link rel="stylesheet" href="assets/css/style.css" type="text/css" />
 		<title>Levegőminőség</title>
 	</head>
+
 <?php
-	// including the parser
-	// see credits in parser file
-	require_once('assets/parser/parser.php');
-	// hide warnings to display "nice" error messeage
-	// delete the below error_reporting line to display warnings
+	// change link to valid city/token combination
+	// get a token free at http://aqicn.org/data-platform/token/
+	$html = json_decode(file_get_contents('http://api.waqi.info/feed/shanghai/?token=demo')); // change this
+	$cityName = $html->data->city->name; // name of city and monitoring station
+	$aqi = $html->data->aqi; // overall air quality index
+	$pm10v = $html->data->iaqi->pm10->v; // PM10 value
+	$no2v = $html->data->iaqi->no2->v; // NO2 value
+	$so2v = $html->data->iaqi->so2->v; // SO2 value
+	$o3v = $html->data->iaqi->o3->v; // O3 value
+	$dataTimestamp = $html->data->time->s; // latest data refresh timestamp
+	$dominant = strtoupper($html->data->dominentpol); // dominant polluter name
+
+	$pm10percentage = ($pm10v/50)*100; // PM10 health level percentage
+	$no2percentage = ($no2v/100)*100; // NO2 health level percentage
+	$so2percentage = ($so2v/250)*100; // SO2 health level percentage
+	$o3percentage = ($o3v/120)*100; // O3 health level percentage
+
+	require_once('assets/calc/aqicalc.php'); 
+	require_once('assets/calc/pm10calc.php');
+	require_once('assets/calc/no2calc.php');
+	require_once('assets/calc/so2calc.php');
+	require_once('assets/calc/o3calc.php');
+
+	// turns off warnings for "nice" error messages
+	// comment this line out to display API warnings
 	error_reporting(E_ERROR | E_PARSE);
-	// replace Miskolc with other city
-	// see available cities at legszennyezes.hu
-	$html = file_get_html('http://www.legszennyezes.hu/miskolc');
-	// display error message if no such city or no connection
+
 	if(!$html) {
+		// display error message if no data returned
 		echo '<body>';
 		echo '<h1>Nincs ilyen város, vagy hiba a kapcsolatban. :(</h1>';
 		echo '</body></html>';
 		exit;
 	}
-
-	// get overall air quality
-	// based on this, you can style the body as you wish,
-	// eg. different background images for different conditions
-	$overallQuality = $html->find('div.current-air-lower-local-summary', 0);
 ?>
 
-<body class="<?php echo $overallQuality->plaintext; // class for body based on $overallQuality ?>">
+<body class="<?php echo $overallQuality; // class for body based on $overallQuality ?>">
+	<h1><?php echo $cityName; ?></h1>
+	<p>Legutóbbi frissítés: <?php echo $dataTimestamp; ?></p>
 
-<?php
+	<div class="tile <?php echo $pm10code; ?>">
+		<h2>PM<sub>10</sub> <span>(szálló por)</span></h2>
+		<div class="current-air-row-amount"><abbr title="Az egészségügyi határérték <?php echo $pm10percentage; ?>%-a"><?php echo $pm10v; ?> µg/m<sup>3</sup></abbr></div><br />
+		<div class="current-air-row-summary"><?php echo $pm10code; ?></div>
+		<div class="indicate"><span style="width: <?php echo $pm10percentage; ?>%;"></span></div>
+	</div>
 
-// get the title, including the city
-	$title = $html->find('h1.current-air-title', 0);
-	echo '<h1>'.$title->plaintext.'</h1>';
-	
-// get timestamp of latest update of data
-	$updated = $html->find('div.actual-updated', 0);
-	echo '<p>'.$updated->plaintext.' &bull; Forrás: <a href="http://www.legszennyezes.hu/miskolc/" target="_blank">légszennyezés.hu</a></p>';
+	<div class="tile <?php echo $pm10code; ?>">
+		<h2>NO<sub>2</sub> <span>(nitrogén-dioxid)</span></h2>
+		<div class="current-air-row-amount"><abbr title="Az egészségügyi határérték <?php echo intval($no2percentage); ?>%-a"><?php echo $no2v; ?> µg/m<sup>3</sup></abbr></div><br />
+		<div class="current-air-row-summary"><?php echo $no2code; ?></div>
+		<div class="indicate"><span style="width: <?php echo intval($no2percentage); ?>%;"></span></div>
+	</div>
 
-// get PM10 Data
-	$pm10 = $html->find('div.current-air-col', 0);
-	$pm10Title = $pm10->find('div.current-air-material', 0);
-	$pm10SubTitle = $pm10->find('div.current-air-material-subtext', 0);
-	$pm10Data = $pm10->find('div.current-air-row-amount', 0);
-	$pm10DataFix = str_replace('m3', 'm<sup>3</sup>', $pm10Data);
-	$pm10Text = $pm10->find('div.current-air-row-summary', 0);
-	$pm10Percent = $pm10->find('div.current-air-row-percent', 0);
-// return PM10 data
-	echo '<div class="tile '.$pm10Text->plaintext.'">';
-	echo '<h2>'.$pm10Title->plaintext.'<span> ('.$pm10SubTitle->plaintext.')<span></h2>';
-	echo '<abbr title="Az egészségügyi határérték '.$pm10Percent->plaintext.'-a">'.$pm10DataFix.'</abbr><br />';
-	echo $pm10Text;
-	echo '<div class="indicate"><span style="width: '.$pm10Percent->plaintext.';"></span></div>';
-	echo '</div>';
+	<div class="tile <?php echo $so2code; ?>">
+		<h2>SO<sub>2</sub> <span>(kén-dioxid)</span></h2>
+		<div class="current-air-row-amount"><abbr title="Az egészségügyi határérték <?php echo intval($so2percentage); ?>%-a"><?php echo $so2v; ?> µg/m<sup>3</sup></abbr></div><br />
+		<div class="current-air-row-summary"><?php echo $so2code; ?></div>
+		<div class="indicate"><span style="width: <?php echo intval($so2percentage); ?>%;"></span></div>
+	</div>
 
-// get NO2 Data
-	$no2 = $html->find('div.current-air-col', 1);
-	$no2Title = $no2->find('div.current-air-material', 0);
-	$no2TitleFix = str_replace('NO2', 'NO<sub>2</sub>', $no2Title->plaintext);
-	$no2SubTitle = $no2->find('div.current-air-material-subtext', 0);
-	$no2Data = $no2->find('div.current-air-row-amount', 0);
-	$no2DataFix = str_replace('m3', 'm<sup>3</sup>', $no2Data);
-	$no2Text = $no2->find('div.current-air-row-summary', 0);
-	$no2Percent = $no2->find('div.current-air-row-percent', 0);
-// return NO2 data
-	echo '<div class="tile '.$no2Text->plaintext.'">';
-	echo '<h2>'.$no2TitleFix.'<span> ('.$no2SubTitle->plaintext.')<span></h2>';
-	echo '<abbr title="Az egészségügyi határérték '.$no2Percent->plaintext.'-a">'.$no2DataFix.'</abbr><br />';
-	echo $no2Text;
-	echo '<div class="indicate"><span style="width: '.$no2Percent->plaintext.';"></span></div>';
-	echo '</div>';
+	<div class="tile <?php echo $o3code; ?>">
+		<h2>O<sub>3</sub> <span>(ózon)</span></h2>
+		<div class="current-air-row-amount"><abbr title="Az egészségügyi határérték <?php echo intval($o3percentage); ?>%-a"><?php echo $o3v; ?> µg/m<sup>3</sup></abbr></div><br />
+		<div class="current-air-row-summary"><?php echo $o3code; ?></div>
+		<div class="indicate"><span style="width: <?php echo intval($o3percentage); ?>%;"></span></div>
+	</div>
 
-// get SO2 Data
-	$so2 = $html->find('div.current-air-col', 2);
-	$so2Title = $so2->find('div.current-air-material', 0);
-	$so2TitleFix = str_replace('SO2', 'SO<sub>2</sub>', $so2Title->plaintext);
-	$so2SubTitle = $so2->find('div.current-air-material-subtext', 0);
-	$so2Data = $so2->find('div.current-air-row-amount', 0);
-	$so2DataFix = str_replace('m3', 'm<sup>3</sup>', $so2Data);
-	$so2Text = $so2->find('div.current-air-row-summary', 0);
-	$so2Percent = $so2->find('div.current-air-row-percent', 0);
-// return SO2 Data
-	echo '<div class="tile '.$so2Text->plaintext.'">';
-	echo '<h2>'.$so2TitleFix.'<span> ('.$so2SubTitle->plaintext.')<span></h2>';
-	echo '<abbr title="Az egészségügyi határérték '.$so2Percent->plaintext.'-a">'.$so2DataFix.'</abbr><br />';
-	echo $so2Text;
-	echo '<div class="indicate"><span style="width: '.$so2Percent->plaintext.';"></span></div>';
-	echo '</div>';
-
-// get NOx Data
-	$nox = $html->find('div.current-air-col', 3);
-	$noxTitle = $nox->find('div.current-air-material', 0);
-	$noxTitleFix = str_replace('NOx', 'NO<sub>X</sub>', $noxTitle->plaintext);
-	$noxSubTitle = $nox->find('div.current-air-material-subtext', 0);
-	$noxData = $nox->find('div.current-air-row-amount', 0);
-	$noxDataFix = str_replace('m3', 'm<sup>3</sup>', $noxData);
-	$noxText = $nox->find('div.current-air-row-summary', 0);
-	$noxPercent = $nox->find('div.current-air-row-percent', 0);
-// return NOx Data
-	echo '<div class="tile '.$noxText->plaintext.'">';
-	echo '<h2>'.$noxTitleFix.'<span> ('.$noxSubTitle->plaintext.')<span></h2>';
-	echo '<abbr title="Az egészségügyi határérték '.$noxPercent->plaintext.'-a">'.$noxDataFix.'</abbr><br />';
-	echo $noxText;
-	echo '<div class="indicate"><span style="width: '.$noxPercent->plaintext.';"></span></div>';
-	echo '</div>';
-
-// get O3 Data
-	$o3 = $html->find('div.current-air-col', 4);
-	$o3Title = $o3->find('div.current-air-material', 0);
-	$o3TitleFix = str_replace('O3', 'O<sub>3</sub>', $o3Title->plaintext);
-	$o3SubTitle = $o3->find('div.current-air-material-subtext', 0);
-	$o3Data = $o3->find('div.current-air-row-amount', 0);
-	$o3DataFix = str_replace('m3', 'm<sup>3</sup>', $o3Data);
-	$o3Text = $o3->find('div.current-air-row-summary', 0);
-	$o3Percent = $o3->find('div.current-air-row-percent', 0);
-// return O3 Data
-	echo '<div class="tile '.$o3Text->plaintext.'">';
-	echo '<h2>'.$o3TitleFix.'<span> ('.$o3SubTitle->plaintext.')<span></h2>';
-	echo '<abbr title="Az egészségügyi határérték '.$o3Percent->plaintext.'-a">'.$o3DataFix.'</abbr><br />';
-	echo $o3Text;
-	echo '<div class="indicate"><span style="width: '.$o3Percent->plaintext.';"></span></div>';
-	echo '</div><div class="clear"></div>';
-
-// get overall air quality
-	$overallIndex = $html->find('div.current-air-lower-local-top', 0);
-	$overallText = $html->find('div.current-air-lower-description', 0);
-	$overallMaterial = $html->find('div.current-air-lower-local-datas', 0);
-// return overall air quality
-	echo '<div class="overall '.$overallQuality->plaintext.'"><h2>Összességében: <span>'.$overallQuality->plaintext.'</span></h2>';
-	echo '<p>'.$overallMaterial->plaintext.'</p>';
-	echo '<p>'.$overallIndex->plaintext.'</p>';
-	echo '<p>'.$overallText->plaintext.'</p>';
-	echo '</div>';
-?>
-
+	<div class="overall <?php echo $overallQuality; ?>">
+		<h2>Összességében: <span><?php echo $overallQuality; ?></span></h2>
+		<p>Összesített index: <?php echo $aqi; ?> &bull; Domináns szennyező: <?php echo $dominant; ?></p>
+		<p><?php echo $oQText; ?></p>
+	</div>
+	<footer>
+		<p><a href="https://github.com/psztrnk/hunaq" target="_blank" title="Source on Github">Source on Github</a> &bull; CC0 demo images: <a href="https://pixabay.com/en/mountains-clean-air-heaven-cold-679885/" target="_blank">GraceDias</a> &bull; <a href="https://pixabay.com/en/morning-mist-autumn-october-427796/" target="_blank">rkiz</a> &bull; <a href="https://pixabay.com/en/sun-sky-sunset-abendstimmung-358958/" target="_blank">David-Karich</a> &bull; <a href="https://pixabay.com/en/power-station-pollution-energy-374097/" target="_blank">stevepb</a></p>
+	</footer>
 	</body>
 </html>
