@@ -1,4 +1,5 @@
 <?php 
+// calculates the hazard level from the O3 value returned
 if ($o3v < 48) {
 	$o3code = 'elfogadható';
 } else if ($o3v >= 48 && $o3v < 96) {
