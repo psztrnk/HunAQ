@@ -19,6 +19,15 @@
 	$o3v = $html->data->iaqi->o3->v; // O3 value
 	$dataTimestamp = $html->data->time->s; // latest data refresh timestamp
 	$dominant = strtoupper($html->data->dominentpol); // dominant polluter name
+	if ($dominant == 'PM10') {
+		$dominantFix = 'PM<sub>10</sub>';
+	} else if($dominant == 'NO2') {
+		$dominantFix = 'NO<sub>2</sub>';
+	} else if($dominant == 'SO2') {
+		$dominantFix = 'SO<sub>2</sub>';
+	} else if($dominant == 'O3') {
+		$dominantFix = 'O<sub>3</sub>';
+	}
 
 	$pm10percentage = ($pm10v/50)*100; // PM10 health level percentage
 	$no2percentage = ($no2v/100)*100; // NO2 health level percentage
@@ -78,7 +87,7 @@
 
 	<div class="overall <?php echo $overallQuality; ?>">
 		<h2>Összességében: <span><?php echo $overallQuality; ?></span></h2>
-		<p>Összesített index: <?php echo $aqi; ?> &bull; Domináns szennyező: <?php echo $dominant; ?></p>
+		<p>Összesített index: <?php echo $aqi; ?> &bull; Domináns szennyező: <?php echo $dominantFix; ?></p>
 		<p><?php echo $oQText; ?></p>
 	</div>
 	<footer>
