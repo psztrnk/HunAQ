@@ -1,4 +1,5 @@
 <?php 
+// calculates the hazard level from the PM10 value returned
 if ($pm10v < 20) {
 	$pm10code = 'elfogadható';
 } else if ($pm10v >= 20 && $pm10v < 40) {
