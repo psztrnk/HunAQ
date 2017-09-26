@@ -1,4 +1,5 @@
 <?php
+// calculates the hazard level from the AQI value returned
 if ($aqi < 50) {
 	$overallQuality = 'elfogadható';
 	$oQText = 'A levegő minősége elfogadható, a légszennyezés nem, vagy csak csekély mértékben veszélyes.';
