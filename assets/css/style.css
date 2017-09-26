@@ -185,7 +185,12 @@ div.overall p {
 
 sub {
 	font-size: 60%;
-	position: sub;
+	vertical-align: sub;
+}
+
+sup {
+	font-size: 60%;
+	vertical-align: super;
 }
 
 div.indicate {
@@ -206,13 +211,7 @@ div.indicate span {
 }
 
 @media screen and (orientation:portrait) {
-	body.egészségtelen,
-	body.kedvezőtlen,
-	body.tűrhető,
-	body.káros {
-		background-size: auto 100%;
-    	background-repeat: no-repeat;
-    }
+/* reserved for body class background adjustments if needed */
 }
 
 @media screen and (max-width: 1650px) {
