@@ -1,4 +1,5 @@
 <?php 
+// calculates the hazard level from the SO2 value returned
 if ($so2v < 16) {
 	$so2code = 'elfogadható';
 } else if ($so2v >= 16 && $so2v < 32) {
