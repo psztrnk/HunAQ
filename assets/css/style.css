@@ -63,21 +63,45 @@ body {
 	text-align: center;
 }
 
-body.tűrhető { }
+body.tűrhető { 
+	background: url('../images/sun-358958_1920.jpg');
+	background-size: cover;
+}
 
-body.elfogadható { }
+body.elfogadható { 
+	background: url('../images/mountains-679885_1920.jpg');
+	background-size: cover;
+}
 
-body.természetes { }
+body.természetes { 
+	background: url('../images/mountains-679885_1920.jpg');
+	background-size: cover;
+}
 
-body.kedvezőtlen { }
+body.kedvezőtlen { 
+	background: url('../images/sun-358958_1920.jpg');
+	background-size: cover;
+}
 
-body.problémás { }
+body.problémás { 
+	background: url('../images/morning-mist-427796_1920.jpg');
+	background-size: cover;
+}
 
-body.egészségtelen { }
+body.egészségtelen { 
+	background: url('../images/morning-mist-427796_1920.jpg');
+	background-size: cover;
+}
 
-body.káros { }
+body.káros { 
+	background: url('../images/power-station-374097_1920.jpg');
+	background-size: cover;
+}
 
-body.veszélyes { }
+body.veszélyes { 
+	background: url('../images/power-station-374097_1920.jpg');
+	background-size: cover;
+}
 
 h1 {
 	margin: 5% 5% 1% 5%;
@@ -108,7 +132,7 @@ abbr {
 
 div.tile {
 	display: inline-block;
-	width: 16%;
+	width: 20%;
 	margin: 1%;
 	padding: 1%;
 	border-radius: 10px;
@@ -118,8 +142,8 @@ div.tile {
 
 div.overall {
 	display: block;
-	width: 96%;
-	margin: 1%;
+	width: 93.5%;
+	margin: 1% auto;
 	padding: 1%;
 	text-align: left;
 	opacity: .9;
@@ -226,7 +250,7 @@ div.indicate span {
 
 @media screen and (max-width: 1080px) {
 	div.tile {
-		width: 42%;
+		width: 41%;
 		margin: 2%;
 		padding: 2%;
 	}
@@ -238,8 +262,8 @@ div.indicate span {
 	}
 
 	div.overall {
-		width: 92%;
-		margin: 2%;
+		width: 91%;
+		margin: 2% auto;
 		padding: 2%;
 	}
 }
@@ -266,4 +290,15 @@ div.indicate span {
 	div.overall h2 {
 		line-height: 180%;
 	}
+}
+
+footer {
+	width: 100%;
+	opacity: .5;
+	padding: 0;
+	color: white;
+}
+
+footer a {
+	color: white;
 }
