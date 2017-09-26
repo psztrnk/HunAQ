@@ -55,7 +55,7 @@
 		<div class="indicate"><span style="width: <?php echo $pm10percentage; ?>%;"></span></div>
 	</div>
 
-	<div class="tile <?php echo $pm10code; ?>">
+	<div class="tile <?php echo $no2code; ?>">
 		<h2>NO<sub>2</sub> <span>(nitrogén-dioxid)</span></h2>
 		<div class="current-air-row-amount"><abbr title="Az egészségügyi határérték <?php echo intval($no2percentage); ?>%-a"><?php echo $no2v; ?> µg/m<sup>3</sup></abbr></div><br />
 		<div class="current-air-row-summary"><?php echo $no2code; ?></div>
