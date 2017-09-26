@@ -1,4 +1,5 @@
 <?php 
+// calculates the hazard level from the NO2 value returned
 if ($no2v < 16) {
 	$no2code = 'elfogadható';
 } else if ($no2v >= 16 && $no2v < 32) {
