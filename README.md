@@ -1,9 +1,11 @@
 # HunAQ
 Hungarian Air Quality parser based on data from [The World Air Quality Index Project Team](http://aqicn.org).
 
+See a demo of HunAQ [here](https://paszternak.me/air).
+
 ## Data Source
-- HunAQ parses the JSON API of The World Air Quality Index Project Team.
-- Hungarian data is provided by the Országos Légszennyezettségi Mérőhálózat (Hungarian Air Quality Monitoring Network).
+- HunAQ parses the data provided by the JSON API of The World Air Quality Index Project Team.
+- Hungarian data is provided to AQICN by the Országos Légszennyezettségi Mérőhálózat (Hungarian Air Quality Monitoring Network).
 
 ## Default Settings and how to Change Them
 - The default JSON source is set to AQICN's demo JSON feed.
